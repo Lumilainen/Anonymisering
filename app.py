@@ -1,6 +1,7 @@
 import streamlit as st
 from docx import Document
 from io import BytesIO
+import zipfile
 
 from main import anonymize_docx, scan_document_for_persons
 
@@ -28,11 +29,11 @@ uploaded_files = st.file_uploader(
 
 if uploaded_files:
 
+    all_persons = set()
+
+    file_data = []
+
     for uploaded_file in uploaded_files:
-
-        st.divider()
-
-        st.subheader(uploaded_file.name)
 
         file_bytes = uploaded_file.read()
 
@@ -40,70 +41,66 @@ if uploaded_files:
 
         doc = Document(doc_stream)
 
-        persons = sorted(scan_document_for_persons(doc))
+        persons = scan_document_for_persons(doc)
 
-        selected_persons = []
+        all_persons.update(persons)
 
-        if persons:
+        file_data.append((uploaded_file.name, file_bytes))
 
-            st.write("Identifierade personer")
+    st.subheader("Identifierade personer i alla dokument")
 
-            for person in persons:
+    selected_persons = []
 
-                checked = st.checkbox(
-                    person,
-                    value=True,
-                    key=f"{uploaded_file.name}_{person}"
+    for person in sorted(all_persons):
+
+        if st.checkbox(person, value=True):
+
+            selected_persons.append(person)
+
+    manual_names = st.text_area(
+        "Lägg till namn manuellt (komma eller radbrytning)"
+    )
+
+    if manual_names:
+
+        for line in manual_names.split("\n"):
+
+            parts = line.split(",")
+
+            for p in parts:
+
+                p = p.strip()
+
+                if p:
+                    selected_persons.append(p)
+
+    if st.button("Anonymisera alla dokument"):
+
+        zip_buffer = BytesIO()
+
+        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+
+            for filename, file_bytes in file_data:
+
+                input_stream = BytesIO(file_bytes)
+
+                output_stream = BytesIO()
+
+                anonymize_docx(
+                    input_stream,
+                    output_stream,
+                    selected_persons
                 )
 
-                if checked:
-                    selected_persons.append(person)
+                zip_file.writestr(
+                    f"anon_{filename}",
+                    output_stream.getvalue()
+                )
 
-        else:
+        st.success("Alla dokument anonymiserade")
 
-            st.info("Inga personer identifierades")
-
-        manual_names = st.text_area(
-            "Lägg till namn manuellt",
-            key=f"manual_{uploaded_file.name}"
+        st.download_button(
+            "Ladda ner alla anonymiserade dokument",
+            data=zip_buffer.getvalue(),
+            file_name="anonymiserade_dokument.zip"
         )
-
-        if manual_names:
-
-            names = []
-
-            for line in manual_names.split("\n"):
-
-                parts = line.split(",")
-
-                for p in parts:
-
-                    p = p.strip()
-
-                    if p:
-                        names.append(p)
-
-            selected_persons.extend(names)
-
-        if st.button(
-            f"Anonymisera {uploaded_file.name}",
-            key=f"button_{uploaded_file.name}"
-        ):
-
-            input_stream = BytesIO(file_bytes)
-
-            output_stream = BytesIO()
-
-            anonymize_docx(
-                input_stream,
-                output_stream,
-                selected_persons
-            )
-
-            st.success("Dokument anonymiserat")
-
-            st.download_button(
-                "Ladda ner anonymiserat dokument",
-                data=output_stream.getvalue(),
-                file_name=f"anon_{uploaded_file.name}"
-            )
