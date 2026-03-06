@@ -2,12 +2,8 @@ import streamlit as st
 from docx import Document
 from io import BytesIO
 
-from main import (
-    anonymize_docx,
-    scan_document_for_persons,
-    collect_all_text,
-    count_occurrences
-)
+from main import anonymize_docx, scan_document_for_persons
+
 
 st.set_page_config(
     page_title="Word anonymiserare",
@@ -16,14 +12,16 @@ st.set_page_config(
 
 st.title("🔒 Dokumentanonymisering")
 
-st.write("""
+st.write(
+"""
 Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
 
 Integritet:
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
 - Filer raderas efter nedladdning
-""")
+"""
+)
 
 uploaded_file = st.file_uploader(
     "Ladda upp dokument",
@@ -40,10 +38,6 @@ if uploaded_file:
 
     persons = sorted(scan_document_for_persons(doc))
 
-    full_text = collect_all_text(doc)
-
-    counts = count_occurrences(full_text, persons)
-
     selected_persons = []
 
     if persons:
@@ -52,9 +46,7 @@ if uploaded_file:
 
         for person in persons:
 
-            label = f"{person} ({counts.get(person,0)} träffar)"
-
-            checked = st.checkbox(label, value=True)
+            checked = st.checkbox(person, value=True)
 
             if checked:
                 selected_persons.append(person)
