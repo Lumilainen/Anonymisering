@@ -15,7 +15,7 @@ st.write(
 """
 Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
 
-Integritet:
+Integritet
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
 - Filer raderas efter nedladdning

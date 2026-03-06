@@ -1,9 +1,14 @@
 import re
 from docx import Document
 
-NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
-INITIAL_REGEX = r"\b[A-Z]\.? ?[A-ZÅÄÖ][a-zåäö\-]+\b"
+# fångar namn
+FULL_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
+
+# initial + efternamn
+INITIAL_NAME_REGEX = r"\b[A-Z](?:-[A-Z])?\.?\s?[A-ZÅÄÖ][a-zåäö\-]+\b"
+
 EMAIL_REGEX = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
+
 PERSONNUMMER_REGEX = r"\b(19|20)?\d{6}[- ]?\d{4}\b"
 
 
@@ -11,8 +16,8 @@ def detect_persons(text):
 
     persons = set()
 
-    persons.update(re.findall(NAME_REGEX, text))
-    persons.update(re.findall(INITIAL_REGEX, text))
+    persons.update(re.findall(FULL_NAME_REGEX, text))
+    persons.update(re.findall(INITIAL_NAME_REGEX, text))
 
     return persons
 
