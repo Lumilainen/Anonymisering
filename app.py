@@ -1,7 +1,6 @@
 import streamlit as st
 from docx import Document
 from io import BytesIO
-
 from main import anonymize_docx, scan_document_for_persons
 
 st.set_page_config(
@@ -15,10 +14,10 @@ st.write(
 """
 Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
 
-Integritet
+**Integritet**
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
-- Filer raderas efter nedladdning
+- Filer raderas automatiskt efter nedladdning
 """
 )
 
@@ -51,14 +50,34 @@ if uploaded_file:
                 selected_persons.append(person)
 
     else:
+
         st.info("Inga personer identifierades")
 
-    manual_name = st.text_input(
-        "Lägg till namn som ska anonymiseras"
+    st.subheader("Lägg till namn manuellt")
+
+    manual_names = st.text_area(
+        "Skriv ett eller flera namn (separera med komma eller radbrytning)",
+        placeholder="Exempel:\nLena Udén\nJan Nordin\nMarcus Lampinen"
     )
 
-    if manual_name:
-        selected_persons.append(manual_name)
+    if manual_names:
+
+        names = []
+
+        # dela på radbrytning
+        for line in manual_names.split("\n"):
+
+            # dela även på komma
+            parts = line.split(",")
+
+            for p in parts:
+
+                p = p.strip()
+
+                if p:
+                    names.append(p)
+
+        selected_persons.extend(names)
 
     if st.button("Starta anonymisering"):
 
