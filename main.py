@@ -57,8 +57,10 @@ def anonymize_text(text, persons):
 
             text = re.sub(rf"\b{first}\b", "[PERSON]", text)
 
-    return text
+    # fixar Jan-[PERSON]
+    text = re.sub(r"\b[A-ZÅÄÖ][a-zåäö]+-\[PERSON\]", "[PERSON]", text)
 
+    return text
 
 # =========================
 # PARAGRAFANONYMISERING
