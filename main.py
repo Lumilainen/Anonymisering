@@ -2,16 +2,15 @@ import re
 from docx import Document
 
 # =========================
-# REGEX
+# REGEX FÖR NAMN
 # =========================
 
 FULL_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+ [A-ZÅÄÖ][a-zåäö]+\b"
-INITIAL_NAME_REGEX = r"\b[A-Z](?:-[A-Z])?\.?\s?[A-ZÅÄÖ][a-zåäö]+\b"
-HYPHEN_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+-[A-ZÅÄÖ][a-zåäö]+\b"
-
-LAST_FIRST_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+,\s?[A-ZÅÄÖ][a-zåäö]+\b"
+INITIAL_SURNAME_REGEX = r"\b[A-Z](?:-[A-Z])?\s[A-ZÅÄÖ][a-zåäö]+\b"
 INITIAL_DOT_REGEX = r"\b[A-Z]\.\s?[A-ZÅÄÖ][a-zåäö]+\b"
+LAST_FIRST_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+,\s?[A-ZÅÄÖ][a-zåäö]+\b"
 LAST_INITIAL_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+\s[A-Z]\b"
+HYPHEN_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+-[A-ZÅÄÖ][a-zåäö]+\b"
 
 EMAIL_REGEX = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
 PERSONNUMMER_REGEX = r"\b(19|20)?\d{6}[- ]?\d{4}\b"
@@ -26,11 +25,11 @@ def detect_persons(text):
     persons = set()
 
     persons.update(re.findall(FULL_NAME_REGEX, text))
-    persons.update(re.findall(INITIAL_NAME_REGEX, text))
-    persons.update(re.findall(HYPHEN_NAME_REGEX, text))
-    persons.update(re.findall(LAST_FIRST_REGEX, text))
+    persons.update(re.findall(INITIAL_SURNAME_REGEX, text))
     persons.update(re.findall(INITIAL_DOT_REGEX, text))
+    persons.update(re.findall(LAST_FIRST_REGEX, text))
     persons.update(re.findall(LAST_INITIAL_REGEX, text))
+    persons.update(re.findall(HYPHEN_NAME_REGEX, text))
 
     return persons
 
@@ -62,19 +61,19 @@ def anonymize_text(text, persons):
 
 
 # =========================
-# PARAGRAFER
+# PARAGRAFANONYMISERING
 # =========================
 
 def anonymize_paragraph(paragraph, persons):
 
-    original = paragraph.text
+    full_text = paragraph.text
 
-    if not original:
+    if not full_text:
         return
 
-    anonymized = anonymize_text(original, persons)
+    anonymized = anonymize_text(full_text, persons)
 
-    if anonymized != original:
+    if anonymized != full_text:
 
         for run in paragraph.runs:
             run.text = ""
@@ -89,9 +88,9 @@ def anonymize_paragraph(paragraph, persons):
 # TABELLER
 # =========================
 
-def process_tables(doc, persons):
+def process_tables(container, persons):
 
-    for table in doc.tables:
+    for table in container.tables:
 
         for row in table.rows:
 
@@ -103,66 +102,46 @@ def process_tables(doc, persons):
 
 
 # =========================
-# HEADER / FOOTER
+# HEADER FOOTER
 # =========================
 
 def process_headers_footers(doc, persons):
 
     for section in doc.sections:
 
-        header_list = [
+        headers = [
             section.header,
             section.first_page_header,
             section.even_page_header
         ]
 
-        footer_list = [
+        footers = [
             section.footer,
             section.first_page_footer,
             section.even_page_footer
         ]
 
-        # HEADER
-        for header in header_list:
+        for header in headers:
 
             if header:
 
                 for paragraph in header.paragraphs:
-
                     anonymize_paragraph(paragraph, persons)
 
-                for table in header.tables:
+                process_tables(header, persons)
 
-                    for row in table.rows:
-
-                        for cell in row.cells:
-
-                            for paragraph in cell.paragraphs:
-
-                                anonymize_paragraph(paragraph, persons)
-
-        # FOOTER
-        for footer in footer_list:
+        for footer in footers:
 
             if footer:
 
                 for paragraph in footer.paragraphs:
-
                     anonymize_paragraph(paragraph, persons)
 
-                for table in footer.tables:
-
-                    for row in table.rows:
-
-                        for cell in row.cells:
-
-                            for paragraph in cell.paragraphs:
-
-                                anonymize_paragraph(paragraph, persons)
+                process_tables(footer, persons)
 
 
 # =========================
-# RENSNING
+# KOMMENTARER
 # =========================
 
 def remove_comments(doc):
@@ -172,12 +151,15 @@ def remove_comments(doc):
         comments_part = doc.part._comments_part
 
         if comments_part:
-
             comments_part._element.clear()
 
     except:
         pass
 
+
+# =========================
+# TRACK CHANGES
+# =========================
 
 def remove_track_changes(doc):
 
@@ -193,6 +175,10 @@ def remove_track_changes(doc):
         pass
 
 
+# =========================
+# METADATA
+# =========================
+
 def clean_metadata(doc):
 
     props = doc.core_properties
@@ -205,7 +191,7 @@ def clean_metadata(doc):
 
 
 # =========================
-# SCANNA NAMN
+# SCANNA NAMN I DOKUMENT
 # =========================
 
 def scan_document_for_persons(doc):
@@ -215,27 +201,23 @@ def scan_document_for_persons(doc):
     for paragraph in doc.paragraphs:
         persons.update(detect_persons(paragraph.text))
 
-    for table in doc.tables:
-        for row in table.rows:
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    persons.update(detect_persons(paragraph.text))
+    process_tables(doc, persons)
 
     for section in doc.sections:
 
-        header_list = [
+        headers = [
             section.header,
             section.first_page_header,
             section.even_page_header
         ]
 
-        footer_list = [
+        footers = [
             section.footer,
             section.first_page_footer,
             section.even_page_footer
         ]
 
-        for header in header_list:
+        for header in headers:
 
             if header:
 
@@ -248,7 +230,7 @@ def scan_document_for_persons(doc):
                             for paragraph in cell.paragraphs:
                                 persons.update(detect_persons(paragraph.text))
 
-        for footer in footer_list:
+        for footer in footers:
 
             if footer:
 
@@ -279,7 +261,6 @@ def anonymize_docx(input_stream, output_stream, persons):
     remove_track_changes(doc)
 
     for paragraph in doc.paragraphs:
-
         anonymize_paragraph(paragraph, persons)
 
     process_tables(doc, persons)
