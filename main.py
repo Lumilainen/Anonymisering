@@ -66,10 +66,14 @@ def anonymize_paragraph(paragraph, persons):
 
     if anonymized != original:
 
+        # säker rensning av runs
         for run in paragraph.runs:
             run.text = ""
 
-        paragraph.runs[0].text = anonymized
+        if paragraph.runs:
+            paragraph.runs[0].text = anonymized
+        else:
+            paragraph.add_run(anonymized)
 
 
 def process_tables(doc, persons):
@@ -81,6 +85,7 @@ def process_tables(doc, persons):
             for cell in row.cells:
 
                 for paragraph in cell.paragraphs:
+
                     anonymize_paragraph(paragraph, persons)
 
 
@@ -89,9 +94,11 @@ def process_headers_footers(doc, persons):
     for section in doc.sections:
 
         for paragraph in section.header.paragraphs:
+
             anonymize_paragraph(paragraph, persons)
 
         for paragraph in section.footer.paragraphs:
+
             anonymize_paragraph(paragraph, persons)
 
 
@@ -100,6 +107,7 @@ def anonymize_docx(input_stream, output_stream, persons):
     doc = Document(input_stream)
 
     for paragraph in doc.paragraphs:
+
         anonymize_paragraph(paragraph, persons)
 
     process_tables(doc, persons)
