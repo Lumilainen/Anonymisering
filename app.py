@@ -1,3 +1,11 @@
+import spacy
+import subprocess
+
+try:
+    nlp = spacy.load("sv_core_news_sm")
+except:
+    subprocess.run(["python", "-m", "spacy", "download", "sv_core_news_sm"])
+    nlp = spacy.load("sv_core_news_sm")
 import streamlit as st
 from docx import Document
 from io import BytesIO
