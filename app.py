@@ -1,7 +1,13 @@
 import streamlit as st
 from docx import Document
 from io import BytesIO
-from main import anonymize_docx, scan_document_for_persons
+
+from main import (
+    anonymize_docx,
+    scan_document_for_persons,
+    collect_all_text,
+    count_occurrences
+)
 
 st.set_page_config(
     page_title="Word anonymiserare",
@@ -10,16 +16,14 @@ st.set_page_config(
 
 st.title("🔒 Dokumentanonymisering")
 
-st.write(
-"""
+st.write("""
 Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
 
-**Integritet**
+Integritet:
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
-- Filer raderas automatiskt efter nedladdning
-"""
-)
+- Filer raderas efter nedladdning
+""")
 
 uploaded_file = st.file_uploader(
     "Ladda upp dokument",
@@ -36,6 +40,10 @@ if uploaded_file:
 
     persons = sorted(scan_document_for_persons(doc))
 
+    full_text = collect_all_text(doc)
+
+    counts = count_occurrences(full_text, persons)
+
     selected_persons = []
 
     if persons:
@@ -44,7 +52,9 @@ if uploaded_file:
 
         for person in persons:
 
-            checked = st.checkbox(person, value=True)
+            label = f"{person} ({counts.get(person,0)} träffar)"
+
+            checked = st.checkbox(label, value=True)
 
             if checked:
                 selected_persons.append(person)
@@ -56,18 +66,15 @@ if uploaded_file:
     st.subheader("Lägg till namn manuellt")
 
     manual_names = st.text_area(
-        "Skriv ett eller flera namn (separera med komma eller radbrytning)",
-        placeholder="Exempel:\nLena Udén\nJan Nordin\nMarcus Lampinen"
+        "Skriv flera namn separerade med komma eller radbrytning"
     )
 
     if manual_names:
 
         names = []
 
-        # dela på radbrytning
         for line in manual_names.split("\n"):
 
-            # dela även på komma
             parts = line.split(",")
 
             for p in parts:
