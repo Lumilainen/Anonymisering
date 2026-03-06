@@ -1,20 +1,10 @@
 import re
 import spacy
 from docx import Document
-from io import BytesIO
 
-# säker laddning av spaCy-modell
-MODEL = "sv_core_news_sm"
+nlp = spacy.load("sv_core_news_sm")
 
-try:
-    nlp = spacy.load(MODEL)
-except OSError:
-    import subprocess, sys
-    subprocess.check_call([sys.executable, "-m", "spacy", "download", MODEL])
-    nlp = spacy.load(MODEL)
-
-
-PERSON_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+ [A-ZÅÄÖ][a-zåäö]+\b"
+PERSON_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
 
 
 def detect_persons(text):
@@ -50,13 +40,10 @@ def scan_document_for_persons(doc):
 
     for section in doc.sections:
 
-        header = section.header
-        footer = section.footer
-
-        for paragraph in header.paragraphs:
+        for paragraph in section.header.paragraphs:
             persons.update(detect_persons(paragraph.text))
 
-        for paragraph in footer.paragraphs:
+        for paragraph in section.footer.paragraphs:
             persons.update(detect_persons(paragraph.text))
 
     return persons
@@ -75,19 +62,19 @@ def anonymize_text(text, persons):
 
 def anonymize_paragraph(paragraph, persons):
 
-    text = paragraph.text
+    original = paragraph.text
 
-    if not text:
+    if not original:
         return
 
-    anonymized = anonymize_text(text, persons)
+    anonymized = anonymize_text(original, persons)
 
-    if anonymized != text:
+    if anonymized != original:
 
-        for run in paragraph.runs[::-1]:
-            paragraph._element.remove(run._element)
+        for run in paragraph.runs:
+            run.text = ""
 
-        paragraph.add_run(anonymized)
+        paragraph.runs[0].text = anonymized
 
 
 def process_tables(doc, persons):
@@ -107,13 +94,10 @@ def process_headers_footers(doc, persons):
 
     for section in doc.sections:
 
-        header = section.header
-        footer = section.footer
-
-        for paragraph in header.paragraphs:
+        for paragraph in section.header.paragraphs:
             anonymize_paragraph(paragraph, persons)
 
-        for paragraph in footer.paragraphs:
+        for paragraph in section.footer.paragraphs:
             anonymize_paragraph(paragraph, persons)
 
 

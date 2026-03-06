@@ -1,17 +1,12 @@
 import streamlit as st
 from docx import Document
 from io import BytesIO
-import spacy
 
 from main import anonymize_docx, scan_document_for_persons
 
-# ladda spaCy-modell
-nlp = spacy.load("sv_core_news_sm")
-
 st.set_page_config(
     page_title="Word anonymiserare",
-    page_icon="🔒",
-    layout="centered"
+    page_icon="🔒"
 )
 
 st.title("🔒 Dokumentanonymisering")
@@ -23,7 +18,7 @@ Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
 Integritet:
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
-- Filer raderas automatiskt efter nedladdning
+- Filer raderas efter nedladdning
 """
 )
 
@@ -34,14 +29,12 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file:
 
-    # läs fil i minnet
     file_bytes = uploaded_file.read()
 
     doc_stream = BytesIO(file_bytes)
 
     doc = Document(doc_stream)
 
-    # identifiera personer
     persons = sorted(scan_document_for_persons(doc))
 
     selected_persons = []
@@ -58,33 +51,26 @@ if uploaded_file:
                 selected_persons.append(person)
 
     else:
-
         st.info("Inga personer identifierades")
-
-    st.subheader("Manuell anonymisering")
 
     manual_name = st.text_input(
         "Lägg till namn som ska anonymiseras"
     )
 
     if manual_name:
-
-        if manual_name not in selected_persons:
-            selected_persons.append(manual_name)
+        selected_persons.append(manual_name)
 
     if st.button("Starta anonymisering"):
 
-        with st.spinner("Anonymiserar dokument..."):
+        input_stream = BytesIO(file_bytes)
 
-            input_stream = BytesIO(file_bytes)
+        output_stream = BytesIO()
 
-            output_stream = BytesIO()
-
-            anonymize_docx(
-                input_stream,
-                output_stream,
-                selected_persons
-            )
+        anonymize_docx(
+            input_stream,
+            output_stream,
+            selected_persons
+        )
 
         st.success("Dokument anonymiserat")
 
