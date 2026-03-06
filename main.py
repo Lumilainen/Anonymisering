@@ -24,18 +24,15 @@ def scan_document_for_persons(doc):
 
     persons = set()
 
-    # Body text
     for paragraph in doc.paragraphs:
         persons.update(detect_persons(paragraph.text))
 
-    # Tables
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     persons.update(detect_persons(paragraph.text))
 
-    # Headers / Footers
     for section in doc.sections:
 
         headers = [
@@ -84,11 +81,17 @@ def anonymize_text(text, persons):
     text = re.sub(PERSONNUMMER_REGEX, "[PERSONNUMMER]", text)
     text = re.sub(EMAIL_REGEX, "[EMAIL]", text)
 
+    # anonymisera fulla namn
     for name in sorted(persons, key=len, reverse=True):
 
         escaped = re.escape(name)
 
         text = re.sub(rf"\b{escaped}\b", "[PERSON]", text)
+
+        # anonymisera även förnamnet
+        first = name.split()[0]
+
+        text = re.sub(rf"\b{first}\b", "[PERSON]", text)
 
     return text
 
