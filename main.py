@@ -2,7 +2,7 @@ import re
 from docx import Document
 
 # =========================
-# REGEX FÖR PERSONUPPGIFTER
+# REGEX
 # =========================
 
 FULL_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö]+ [A-ZÅÄÖ][a-zåäö]+\b"
@@ -62,7 +62,7 @@ def anonymize_text(text, persons):
 
 
 # =========================
-# PARAGRAFHANTERING
+# PARAGRAFER
 # =========================
 
 def anonymize_paragraph(paragraph, persons):
@@ -110,19 +110,20 @@ def process_headers_footers(doc, persons):
 
     for section in doc.sections:
 
-        headers = [
+        header_list = [
             section.header,
             section.first_page_header,
             section.even_page_header
         ]
 
-        footers = [
+        footer_list = [
             section.footer,
             section.first_page_footer,
             section.even_page_footer
         ]
 
-        for header in headers:
+        # HEADER
+        for header in header_list:
 
             if header:
 
@@ -140,7 +141,8 @@ def process_headers_footers(doc, persons):
 
                                 anonymize_paragraph(paragraph, persons)
 
-        for footer in footers:
+        # FOOTER
+        for footer in footer_list:
 
             if footer:
 
@@ -160,7 +162,7 @@ def process_headers_footers(doc, persons):
 
 
 # =========================
-# KOMMENTARER
+# RENSNING
 # =========================
 
 def remove_comments(doc):
@@ -177,10 +179,6 @@ def remove_comments(doc):
         pass
 
 
-# =========================
-# TRACK CHANGES
-# =========================
-
 def remove_track_changes(doc):
 
     try:
@@ -195,10 +193,6 @@ def remove_track_changes(doc):
         pass
 
 
-# =========================
-# METADATA
-# =========================
-
 def clean_metadata(doc):
 
     props = doc.core_properties
@@ -211,7 +205,7 @@ def clean_metadata(doc):
 
 
 # =========================
-# SKANNA DOKUMENT
+# SCANNA NAMN
 # =========================
 
 def scan_document_for_persons(doc):
@@ -229,31 +223,43 @@ def scan_document_for_persons(doc):
 
     for section in doc.sections:
 
-        headers = [
+        header_list = [
             section.header,
             section.first_page_header,
             section.even_page_header
         ]
 
-        footers = [
+        footer_list = [
             section.footer,
             section.first_page_footer,
             section.even_page_footer
         ]
 
-        for header in headers:
+        for header in header_list:
 
             if header:
 
                 for paragraph in header.paragraphs:
                     persons.update(detect_persons(paragraph.text))
 
-        for footer in footers:
+                for table in header.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for paragraph in cell.paragraphs:
+                                persons.update(detect_persons(paragraph.text))
+
+        for footer in footer_list:
 
             if footer:
 
                 for paragraph in footer.paragraphs:
                     persons.update(detect_persons(paragraph.text))
+
+                for table in footer.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for paragraph in cell.paragraphs:
+                                persons.update(detect_persons(paragraph.text))
 
     return persons
 
