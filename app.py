@@ -1,19 +1,26 @@
-import spacy
-import subprocess
-
-try:
-    nlp = spacy.load("sv_core_news_sm")
-except:
-    subprocess.run(["python", "-m", "spacy", "download", "sv_core_news_sm"])
-    nlp = spacy.load("sv_core_news_sm")
 import streamlit as st
 from docx import Document
 from io import BytesIO
+import spacy
+import subprocess
+import sys
+
+# säker laddning av spaCy-modell
+MODEL_NAME = "sv_core_news_sm"
+
+try:
+    nlp = spacy.load(MODEL_NAME)
+except:
+    subprocess.check_call([sys.executable, "-m", "spacy", "download", MODEL_NAME])
+    nlp = spacy.load(MODEL_NAME)
+
 from main import anonymize_docx, scan_document_for_persons
+
 
 st.set_page_config(
     page_title="Word anonymiserare",
-    page_icon="🔒"
+    page_icon="🔒",
+    layout="centered"
 )
 
 st.title("🔒 Dokumentanonymisering")
@@ -71,19 +78,21 @@ if uploaded_file:
 
     if manual_name:
 
-        selected_persons.append(manual_name)
+        if manual_name not in selected_persons:
+            selected_persons.append(manual_name)
 
     if st.button("Starta anonymisering"):
 
-        input_stream = BytesIO(file_bytes)
+        with st.spinner("Anonymiserar dokument..."):
 
-        output_stream = BytesIO()
+            input_stream = BytesIO(file_bytes)
+            output_stream = BytesIO()
 
-        anonymize_docx(
-            input_stream,
-            output_stream,
-            selected_persons
-        )
+            anonymize_docx(
+                input_stream,
+                output_stream,
+                selected_persons
+            )
 
         st.success("Dokument anonymiserat")
 
