@@ -1,26 +1,18 @@
 import re
-import spacy
 from docx import Document
 
-nlp = spacy.load("sv_core_news_sm")
-
-PERSON_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
+NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
+INITIAL_REGEX = r"\b[A-Z]\.? ?[A-ZÅÄÖ][a-zåäö\-]+\b"
+EMAIL_REGEX = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
+PERSONNUMMER_REGEX = r"\b(19|20)?\d{6}[- ]?\d{4}\b"
 
 
 def detect_persons(text):
 
     persons = set()
 
-    doc = nlp(text)
-
-    for ent in doc.ents:
-        if ent.label_ == "PER":
-            persons.add(ent.text)
-
-    regex_matches = re.findall(PERSON_REGEX, text)
-
-    for match in regex_matches:
-        persons.add(match)
+    persons.update(re.findall(NAME_REGEX, text))
+    persons.update(re.findall(INITIAL_REGEX, text))
 
     return persons
 
@@ -50,6 +42,9 @@ def scan_document_for_persons(doc):
 
 
 def anonymize_text(text, persons):
+
+    text = re.sub(PERSONNUMMER_REGEX, "[PERSONNUMMER]", text)
+    text = re.sub(EMAIL_REGEX, "[EMAIL]", text)
 
     for name in sorted(persons, key=len, reverse=True):
 
