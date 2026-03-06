@@ -1,14 +1,9 @@
 import re
 from docx import Document
 
-# fångar namn
 FULL_NAME_REGEX = r"\b[A-ZÅÄÖ][a-zåäö\-]+ [A-ZÅÄÖ][a-zåäö\-]+\b"
-
-# initial + efternamn
 INITIAL_NAME_REGEX = r"\b[A-Z](?:-[A-Z])?\.?\s?[A-ZÅÄÖ][a-zåäö\-]+\b"
-
 EMAIL_REGEX = r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
-
 PERSONNUMMER_REGEX = r"\b(19|20)?\d{6}[- ]?\d{4}\b"
 
 
@@ -86,7 +81,6 @@ def process_tables(doc, persons):
             for cell in row.cells:
 
                 for paragraph in cell.paragraphs:
-
                     anonymize_paragraph(paragraph, persons)
 
 
