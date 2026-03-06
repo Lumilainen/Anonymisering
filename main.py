@@ -21,22 +21,57 @@ def scan_document_for_persons(doc):
 
     persons = set()
 
+    # Body text
     for paragraph in doc.paragraphs:
         persons.update(detect_persons(paragraph.text))
 
+    # Tables
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     persons.update(detect_persons(paragraph.text))
 
+    # Headers / Footers
     for section in doc.sections:
 
-        for paragraph in section.header.paragraphs:
-            persons.update(detect_persons(paragraph.text))
+        headers = [
+            section.header,
+            section.first_page_header,
+            section.even_page_header
+        ]
 
-        for paragraph in section.footer.paragraphs:
-            persons.update(detect_persons(paragraph.text))
+        footers = [
+            section.footer,
+            section.first_page_footer,
+            section.even_page_footer
+        ]
+
+        for header in headers:
+
+            if header:
+
+                for paragraph in header.paragraphs:
+                    persons.update(detect_persons(paragraph.text))
+
+                for table in header.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for paragraph in cell.paragraphs:
+                                persons.update(detect_persons(paragraph.text))
+
+        for footer in footers:
+
+            if footer:
+
+                for paragraph in footer.paragraphs:
+                    persons.update(detect_persons(paragraph.text))
+
+                for table in footer.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            for paragraph in cell.paragraphs:
+                                persons.update(detect_persons(paragraph.text))
 
     return persons
 
@@ -66,7 +101,6 @@ def anonymize_paragraph(paragraph, persons):
 
     if anonymized != original:
 
-        # säker rensning av runs
         for run in paragraph.runs:
             run.text = ""
 
@@ -93,13 +127,53 @@ def process_headers_footers(doc, persons):
 
     for section in doc.sections:
 
-        for paragraph in section.header.paragraphs:
+        headers = [
+            section.header,
+            section.first_page_header,
+            section.even_page_header
+        ]
 
-            anonymize_paragraph(paragraph, persons)
+        footers = [
+            section.footer,
+            section.first_page_footer,
+            section.even_page_footer
+        ]
 
-        for paragraph in section.footer.paragraphs:
+        for header in headers:
 
-            anonymize_paragraph(paragraph, persons)
+            if header:
+
+                for paragraph in header.paragraphs:
+
+                    anonymize_paragraph(paragraph, persons)
+
+                for table in header.tables:
+
+                    for row in table.rows:
+
+                        for cell in row.cells:
+
+                            for paragraph in cell.paragraphs:
+
+                                anonymize_paragraph(paragraph, persons)
+
+        for footer in footers:
+
+            if footer:
+
+                for paragraph in footer.paragraphs:
+
+                    anonymize_paragraph(paragraph, persons)
+
+                for table in footer.tables:
+
+                    for row in table.rows:
+
+                        for cell in row.cells:
+
+                            for paragraph in cell.paragraphs:
+
+                                anonymize_paragraph(paragraph, persons)
 
 
 def anonymize_docx(input_stream, output_stream, persons):
