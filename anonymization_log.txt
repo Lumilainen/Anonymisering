@@ -1,0 +1,222 @@
+2026-03-06 08:41:00.760651 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 08:41:00.766692 - Metadata rensad
+2026-03-06 08:41:01.142875 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 08:45:01.441497 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 08:45:01.447583 - Metadata rensad
+2026-03-06 08:45:01.496927 - Text anonymiserad
+2026-03-06 08:45:01.764757 - Text anonymiserad
+2026-03-06 08:45:01.784591 - Text anonymiserad
+2026-03-06 08:45:01.802259 - Text anonymiserad
+2026-03-06 08:45:01.821234 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 08:49:38.390763 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 08:49:38.396757 - Metadata rensad
+2026-03-06 08:49:38.533106 - Text anonymiserad
+2026-03-06 08:49:38.538003 - Text anonymiserad
+2026-03-06 08:49:39.584721 - Text anonymiserad
+2026-03-06 08:49:39.643540 - Text anonymiserad
+2026-03-06 08:49:39.686272 - Text anonymiserad
+2026-03-06 08:49:39.699600 - Text anonymiserad
+2026-03-06 08:49:39.753509 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 08:54:34.526440 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 08:54:34.532479 - Metadata rensad
+2026-03-06 08:54:34.578089 - Text anonymiserad
+2026-03-06 08:54:34.847392 - Text anonymiserad
+2026-03-06 08:54:34.865546 - Text anonymiserad
+2026-03-06 08:54:34.880682 - Text anonymiserad
+2026-03-06 08:54:34.897694 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 08:57:12.066760 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 08:57:12.072750 - Metadata rensad
+2026-03-06 08:57:12.073529 - Word kommentarer borttagna
+2026-03-06 08:57:12.073785 - Track changes rensade
+2026-03-06 08:57:12.118419 - Text anonymiserad
+2026-03-06 08:57:12.388671 - Text anonymiserad
+2026-03-06 08:57:12.407958 - Text anonymiserad
+2026-03-06 08:57:12.424996 - Text anonymiserad
+2026-03-06 08:57:12.435073 - Shapes analyserade
+2026-03-06 08:57:12.442205 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 09:37:36.880986 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 09:37:36.886684 - Metadata rensad
+2026-03-06 09:37:36.888788 - Word kommentarer borttagna
+2026-03-06 09:37:36.889025 - Track changes rensade
+2026-03-06 09:37:36.925982 - Text anonymiserad
+2026-03-06 09:37:37.236312 - Text anonymiserad
+2026-03-06 09:37:37.259468 - Text anonymiserad
+2026-03-06 09:37:37.280653 - Text anonymiserad
+2026-03-06 09:37:37.293234 - Shapes analyserade
+2026-03-06 09:37:37.304313 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 09:42:47.933337 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 09:42:47.939013 - Metadata rensad
+2026-03-06 09:42:47.939329 - Word kommentarer borttagna
+2026-03-06 09:42:47.939570 - Track changes rensade
+2026-03-06 09:42:47.991318 - Text anonymiserad
+2026-03-06 09:42:48.283969 - Text anonymiserad
+2026-03-06 09:42:48.336340 - Text anonymiserad
+2026-03-06 09:42:48.368281 - Text anonymiserad
+2026-03-06 09:42:48.478935 - Text anonymiserad
+2026-03-06 09:42:48.531040 - Text anonymiserad
+2026-03-06 09:42:48.600550 - Text anonymiserad
+2026-03-06 09:42:48.618839 - Shapes analyserade
+2026-03-06 09:42:48.626290 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 09:55:41.821020 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 09:55:41.826379 - Metadata rensad
+2026-03-06 09:55:41.826621 - Word kommentarer borttagna
+2026-03-06 09:55:41.826814 - Track changes rensade
+2026-03-06 09:55:41.844837 - Text anonymiserad
+2026-03-06 09:55:41.851117 - Text anonymiserad
+2026-03-06 09:55:41.863608 - Text anonymiserad
+2026-03-06 09:55:41.877026 - Text anonymiserad
+2026-03-06 09:55:41.885667 - Text anonymiserad
+2026-03-06 09:55:41.897635 - Text anonymiserad
+2026-03-06 09:55:41.905691 - Text anonymiserad
+2026-03-06 09:55:41.912059 - Text anonymiserad
+2026-03-06 09:55:41.918412 - Text anonymiserad
+2026-03-06 09:55:41.925099 - Text anonymiserad
+2026-03-06 09:55:41.930619 - Text anonymiserad
+2026-03-06 09:55:41.936673 - Text anonymiserad
+2026-03-06 09:55:41.946899 - Text anonymiserad
+2026-03-06 09:55:41.956204 - Text anonymiserad
+2026-03-06 09:55:41.965406 - Text anonymiserad
+2026-03-06 09:55:41.981323 - Text anonymiserad
+2026-03-06 09:55:41.989736 - Text anonymiserad
+2026-03-06 09:55:41.996101 - Text anonymiserad
+2026-03-06 09:55:42.003210 - Text anonymiserad
+2026-03-06 09:55:42.009866 - Text anonymiserad
+2026-03-06 09:55:42.015872 - Text anonymiserad
+2026-03-06 09:55:42.023624 - Text anonymiserad
+2026-03-06 09:55:42.032334 - Text anonymiserad
+2026-03-06 09:55:42.043323 - Text anonymiserad
+2026-03-06 09:55:42.055366 - Text anonymiserad
+2026-03-06 09:55:42.066925 - Text anonymiserad
+2026-03-06 09:55:42.076402 - Text anonymiserad
+2026-03-06 09:55:42.085820 - Text anonymiserad
+2026-03-06 09:55:42.109859 - Text anonymiserad
+2026-03-06 09:55:42.115484 - Text anonymiserad
+2026-03-06 09:55:42.124209 - Text anonymiserad
+2026-03-06 09:55:42.132833 - Text anonymiserad
+2026-03-06 09:55:42.140224 - Text anonymiserad
+2026-03-06 09:55:42.150023 - Text anonymiserad
+2026-03-06 09:55:42.159627 - Text anonymiserad
+2026-03-06 09:55:42.165232 - Text anonymiserad
+2026-03-06 09:55:42.180787 - Text anonymiserad
+2026-03-06 09:55:42.186290 - Text anonymiserad
+2026-03-06 09:55:42.191587 - Text anonymiserad
+2026-03-06 09:55:42.197824 - Text anonymiserad
+2026-03-06 09:55:42.203074 - Text anonymiserad
+2026-03-06 09:55:42.215210 - Text anonymiserad
+2026-03-06 09:55:42.220286 - Text anonymiserad
+2026-03-06 09:55:42.226674 - Text anonymiserad
+2026-03-06 09:55:42.237109 - Text anonymiserad
+2026-03-06 09:55:42.242981 - Text anonymiserad
+2026-03-06 09:55:42.271804 - Text anonymiserad
+2026-03-06 09:55:42.276795 - Text anonymiserad
+2026-03-06 09:55:42.292150 - Text anonymiserad
+2026-03-06 09:55:42.297333 - Text anonymiserad
+2026-03-06 09:55:42.326035 - Text anonymiserad
+2026-03-06 09:55:42.338213 - Text anonymiserad
+2026-03-06 09:55:42.351351 - Text anonymiserad
+2026-03-06 09:55:42.357660 - Text anonymiserad
+2026-03-06 09:55:42.368189 - Text anonymiserad
+2026-03-06 09:55:42.372810 - Text anonymiserad
+2026-03-06 09:55:42.386517 - Text anonymiserad
+2026-03-06 09:55:42.419861 - Text anonymiserad
+2026-03-06 09:55:42.425426 - Text anonymiserad
+2026-03-06 09:55:42.462224 - Text anonymiserad
+2026-03-06 09:55:42.476652 - Text anonymiserad
+2026-03-06 09:55:42.481878 - Shapes analyserade
+2026-03-06 09:55:42.488948 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 11:06:41.224422 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 11:06:41.229844 - Metadata rensad
+2026-03-06 11:06:41.230696 - Word kommentarer borttagna
+2026-03-06 11:06:41.230915 - Track changes rensade
+2026-03-06 11:06:41.233790 - Text anonymiserad
+2026-03-06 11:06:41.239664 - Text anonymiserad
+2026-03-06 11:06:41.240234 - Text anonymiserad
+2026-03-06 11:06:41.240855 - Text anonymiserad
+2026-03-06 11:06:41.246982 - Shapes analyserade
+2026-03-06 11:06:41.254415 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 11:09:02.497999 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 11:09:02.507625 - Metadata rensad
+2026-03-06 11:09:02.507919 - Word kommentarer borttagna
+2026-03-06 11:09:02.508212 - Track changes rensade
+2026-03-06 11:09:02.510563 - Text anonymiserad
+2026-03-06 11:09:02.516420 - Text anonymiserad
+2026-03-06 11:09:02.516979 - Text anonymiserad
+2026-03-06 11:09:02.517627 - Text anonymiserad
+2026-03-06 11:09:02.521035 - Text anonymiserad
+2026-03-06 11:09:02.522258 - Text anonymiserad
+2026-03-06 11:09:02.528235 - Text anonymiserad
+2026-03-06 11:09:02.529721 - Shapes analyserade
+2026-03-06 11:09:02.537600 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 12:05:36.966774 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 12:05:36.972218 - Metadata rensad
+2026-03-06 12:05:36.976449 - Word kommentarer borttagna
+2026-03-06 12:05:36.976745 - Track changes rensade
+2026-03-06 12:05:36.978594 - Text anonymiserad
+2026-03-06 12:05:36.984510 - Text anonymiserad
+2026-03-06 12:05:36.985066 - Text anonymiserad
+2026-03-06 12:05:36.985699 - Text anonymiserad
+2026-03-06 12:05:36.989096 - Text anonymiserad
+2026-03-06 12:05:36.990349 - Text anonymiserad
+2026-03-06 12:05:36.991895 - Text anonymiserad
+2026-03-06 12:05:36.992788 - Shapes analyserade
+2026-03-06 12:05:37.000365 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 12:23:45.517362 - Start anonymisering Befattning CISO_ 202311 (003).docx
+2026-03-06 12:23:45.522497 - Metadata rensad
+2026-03-06 12:23:45.522770 - Word kommentarer borttagna
+2026-03-06 12:23:45.523013 - Track changes rensade
+2026-03-06 12:23:45.525661 - Text anonymiserad
+2026-03-06 12:23:45.532252 - Text anonymiserad
+2026-03-06 12:23:45.532884 - Text anonymiserad
+2026-03-06 12:23:45.533520 - Text anonymiserad
+2026-03-06 12:23:45.539843 - Shapes analyserade
+2026-03-06 12:23:45.546923 - Klar Befattning CISO_ 202311 (003).docx
+2026-03-06 12:27:30.181453 - Metadata rensad
+2026-03-06 12:27:30.181736 - Word kommentarer borttagna
+2026-03-06 12:27:30.181984 - Track changes rensade
+2026-03-06 12:27:30.185088 - Text anonymiserad
+2026-03-06 12:27:30.192654 - Text anonymiserad
+2026-03-06 12:27:30.193307 - Text anonymiserad
+2026-03-06 12:27:30.194050 - Text anonymiserad
+2026-03-06 12:27:30.197844 - Text anonymiserad
+2026-03-06 12:27:30.199250 - Text anonymiserad
+2026-03-06 12:27:30.201116 - Text anonymiserad
+2026-03-06 12:37:38.145155 - Metadata rensad
+2026-03-06 12:37:38.145571 - Word kommentarer borttagna
+2026-03-06 12:37:38.146330 - Track changes rensade
+2026-03-06 12:37:38.149653 - Text anonymiserad
+2026-03-06 12:37:38.158161 - Text anonymiserad
+2026-03-06 12:37:38.159379 - Text anonymiserad
+2026-03-06 12:37:38.160830 - Text anonymiserad
+2026-03-06 12:37:38.166914 - Text anonymiserad
+2026-03-06 12:37:38.168874 - Text anonymiserad
+2026-03-06 12:37:38.171469 - Text anonymiserad
+2026-03-06 12:42:27.455209 - Metadata rensad
+2026-03-06 12:42:27.455967 - Word kommentarer borttagna
+2026-03-06 12:42:27.456508 - Track changes rensade
+2026-03-06 12:42:27.464677 - Text anonymiserad
+2026-03-06 12:42:27.465516 - Text anonymiserad
+2026-03-06 12:42:27.466469 - Text anonymiserad
+2026-03-06 12:42:27.467695 - Text anonymiserad
+2026-03-06 12:42:27.472070 - Text anonymiserad
+2026-03-06 12:42:27.473299 - Text anonymiserad
+2026-03-06 12:42:27.476384 - Text anonymiserad
+2026-03-06 13:20:24.492034 - Metadata rensad
+2026-03-06 13:20:24.493469 - Word kommentarer borttagna
+2026-03-06 13:20:24.493978 - Track changes rensade
+2026-03-06 13:20:24.506424 - Text anonymiserad
+2026-03-06 13:20:24.507559 - Text anonymiserad
+2026-03-06 13:20:24.508649 - Text anonymiserad
+2026-03-06 13:20:24.509747 - Text anonymiserad
+2026-03-06 13:20:24.513952 - Text anonymiserad
+2026-03-06 13:20:24.516115 - Text anonymiserad
+2026-03-06 13:20:24.518481 - Text anonymiserad
+2026-03-06 13:32:48.803320 - Metadata rensad
+2026-03-06 13:32:48.803743 - Word kommentarer borttagna
+2026-03-06 13:32:48.804073 - Track changes rensade
+2026-03-06 13:32:48.813554 - Text anonymiserad
+2026-03-06 13:32:48.814183 - Text anonymiserad
+2026-03-06 13:32:48.815456 - Text anonymiserad
+2026-03-06 13:32:48.816734 - Text anonymiserad
+2026-03-06 13:32:48.822352 - Text anonymiserad
+2026-03-06 13:32:48.824413 - Text anonymiserad
+2026-03-06 13:32:48.827371 - Text anonymiserad
