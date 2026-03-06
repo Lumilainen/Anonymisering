@@ -4,7 +4,6 @@ from io import BytesIO
 
 from main import anonymize_docx, scan_document_for_persons
 
-
 st.set_page_config(
     page_title="Word anonymiserare",
     page_icon="🔒"
@@ -12,88 +11,99 @@ st.set_page_config(
 
 st.title("🔒 Dokumentanonymisering")
 
-st.write(
-"""
-Ladda upp ett Word-dokument (.docx) för att anonymisera personuppgifter.
+st.write("""
+Ladda upp ett eller flera Word-dokument (.docx) för att anonymisera personuppgifter.
 
 Integritet:
 - Dokument lagras inte
 - Bearbetning sker endast i minnet
 - Filer raderas efter nedladdning
-"""
-)
+""")
 
-uploaded_file = st.file_uploader(
+uploaded_files = st.file_uploader(
     "Ladda upp dokument",
-    type=["docx"]
+    type=["docx"],
+    accept_multiple_files=True
 )
 
-if uploaded_file:
+if uploaded_files:
 
-    file_bytes = uploaded_file.read()
+    for uploaded_file in uploaded_files:
 
-    doc_stream = BytesIO(file_bytes)
+        st.divider()
 
-    doc = Document(doc_stream)
+        st.subheader(uploaded_file.name)
 
-    persons = sorted(scan_document_for_persons(doc))
+        file_bytes = uploaded_file.read()
 
-    selected_persons = []
+        doc_stream = BytesIO(file_bytes)
 
-    if persons:
+        doc = Document(doc_stream)
 
-        st.subheader("Identifierade personer")
+        persons = sorted(scan_document_for_persons(doc))
 
-        for person in persons:
+        selected_persons = []
 
-            checked = st.checkbox(person, value=True)
+        if persons:
 
-            if checked:
-                selected_persons.append(person)
+            st.write("Identifierade personer")
 
-    else:
+            for person in persons:
 
-        st.info("Inga personer identifierades")
+                checked = st.checkbox(
+                    person,
+                    value=True,
+                    key=f"{uploaded_file.name}_{person}"
+                )
 
-    st.subheader("Lägg till namn manuellt")
+                if checked:
+                    selected_persons.append(person)
 
-    manual_names = st.text_area(
-        "Skriv flera namn separerade med komma eller radbrytning"
-    )
+        else:
 
-    if manual_names:
+            st.info("Inga personer identifierades")
 
-        names = []
-
-        for line in manual_names.split("\n"):
-
-            parts = line.split(",")
-
-            for p in parts:
-
-                p = p.strip()
-
-                if p:
-                    names.append(p)
-
-        selected_persons.extend(names)
-
-    if st.button("Starta anonymisering"):
-
-        input_stream = BytesIO(file_bytes)
-
-        output_stream = BytesIO()
-
-        anonymize_docx(
-            input_stream,
-            output_stream,
-            selected_persons
+        manual_names = st.text_area(
+            "Lägg till namn manuellt",
+            key=f"manual_{uploaded_file.name}"
         )
 
-        st.success("Dokument anonymiserat")
+        if manual_names:
 
-        st.download_button(
-            "Ladda ner anonymiserat dokument",
-            data=output_stream.getvalue(),
-            file_name="anonymiserad_fil.docx"
-        )
+            names = []
+
+            for line in manual_names.split("\n"):
+
+                parts = line.split(",")
+
+                for p in parts:
+
+                    p = p.strip()
+
+                    if p:
+                        names.append(p)
+
+            selected_persons.extend(names)
+
+        if st.button(
+            f"Anonymisera {uploaded_file.name}",
+            key=f"button_{uploaded_file.name}"
+        ):
+
+            input_stream = BytesIO(file_bytes)
+
+            output_stream = BytesIO()
+
+            anonymize_docx(
+                input_stream,
+                output_stream,
+                selected_persons
+            )
+
+            st.success("Dokument anonymiserat")
+
+            st.download_button(
+                "Ladda ner anonymiserat dokument",
+                data=output_stream.getvalue(),
+                file_name=f"anon_{uploaded_file.name}"
+            )
