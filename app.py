@@ -17,8 +17,6 @@ Ladda upp ett eller flera Word-dokument (.docx) för att anonymisera personuppgi
 
 Integritet och dataskydd
 
-Integritet och dataskydd
-
 • Dokument behandlas endast under den aktiva sessionen
 • Ingen permanent lagring sker i systemet
 • Bearbetning sker i serverns arbetsminne
