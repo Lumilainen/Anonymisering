@@ -17,10 +17,10 @@ Ladda upp ett eller flera Word-dokument (.docx) för att anonymisera personuppgi
 
 Integritet och dataskydd
 
-• Dokument behandlas endast under den aktiva sessionen
+• Dokument behandlas temporärt under den aktiva sessionen
 • Ingen permanent lagring sker i systemet
 • Bearbetning sker i serverns arbetsminne
-• Inga data skickas till externa tjänster eller AI-API
+• Dokument skickas inte vidare till externa tjänster eller AI-API
 • Anonymiserade dokument genereras direkt och laddas ned av användaren
 
 Observera:
