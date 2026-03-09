@@ -17,15 +17,20 @@ Ladda upp ett eller flera Word-dokument (.docx) för att anonymisera personuppgi
 
 Integritet och dataskydd
 
-• Dokument behandlas temporärt under den aktiva sessionen
+Integritet och dataskydd
+
+• Dokument behandlas endast under den aktiva sessionen
 • Ingen permanent lagring sker i systemet
 • Bearbetning sker i serverns arbetsminne
-• Dokument skickas inte vidare till externa tjänster eller AI-API
+• Inga data skickas till externa tjänster eller AI-API
 • Anonymiserade dokument genereras direkt och laddas ned av användaren
 
 Observera:
 Ladda inte upp dokument som innehåller känsliga personuppgifter
 (t.ex. hälsodata eller personnummer).
+
+Sådana uppgifter kräver enligt GDPR en högre skyddsnivå och ska
+normalt inte behandlas i denna typ av verktyg.
 """)
 
 uploaded_files = st.file_uploader(
