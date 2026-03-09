@@ -15,10 +15,17 @@ st.title("🔒 Dokumentanonymisering")
 st.write("""
 Ladda upp ett eller flera Word-dokument (.docx) för att anonymisera personuppgifter.
 
-Integritet:
-- Dokument lagras inte
-- Bearbetning sker endast i minnet
-- Filer raderas efter nedladdning
+Integritet och dataskydd
+
+• Dokument behandlas endast under den aktiva sessionen
+• Ingen permanent lagring sker i systemet
+• Bearbetning sker i serverns arbetsminne
+• Inga data skickas till externa tjänster eller AI-API
+• Anonymiserade dokument genereras direkt och laddas ned av användaren
+
+Observera:
+Ladda inte upp dokument som innehåller känsliga personuppgifter
+(t.ex. hälsodata eller personnummer).
 """)
 
 uploaded_files = st.file_uploader(
